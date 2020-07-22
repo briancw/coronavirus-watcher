@@ -1,0 +1,31 @@
+.desktop(@content) {
+    @media screen and (min-width: 414px) {
+        @content();
+    }
+}
+
+.tablet(@content) {
+    @media screen and (max-width: 1028px) {
+        @content();
+    }
+}
+
+.mobile(@content) {
+    @media screen and (max-width: 414px) {
+        @content();
+    }
+}
+
+// @mixin lato {
+//     font-family: 'Lato', sans-serif;
+// }
+
+// FIXME not yet working
+// .tablet_mobile(@content) {
+//     .tablet() {
+//         @content();
+//     }
+//     .mobile() {
+//         @content();
+//     }
+// }

@@ -1,0 +1,44 @@
+{
+  "name": "coronavirus-data-watcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "NODE_ENV=development webpack --config build/webpack.config.js --progress --hide-modules --watch",
+    "pack-production": "NODE_ENV=production webpack --config build/webpack.config.js --progress --hide-modules",
+    "clean": "rm public/dist/*"
+  },
+  "keywords": [],
+  "author": "Brian Whicheloe <brian@whicheloe.us> (https://whicheloe.us/)",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "csv-parse": "^4.11.1",
+    "vue-good-table": "^2.20.0"
+  },
+  "devDependencies": {
+    "css-loader": "^3.6.0",
+    "electron": "^9.1.1",
+    "eslint": "^7.5.0",
+    "eslint-config-brian": "^1.0.7",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-vue": "^6.2.2",
+    "file-loader": "^6.0.0",
+    "less": "^3.12.2",
+    "less-loader": "^6.2.0",
+    "style-loader": "^1.2.1",
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.3",
+    "vue-router": "^3.3.4",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.11",
+    "vuex": "^3.5.1",
+    "webpack": "^4.43.0",
+    "webpack-build-notifier": "^2.1.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-visualizer-plugin": "^0.1.11"
+  }
+}
