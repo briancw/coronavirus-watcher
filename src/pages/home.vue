@@ -8,6 +8,7 @@
                 </select>
             </div>
 
+            <router-link class="settingsIcon" to="/settings"></router-link>
             <div class="refreshIcon" v-on:click="refreshData"></div>
 
             <div class="stateTotal">
@@ -77,6 +78,9 @@ export default {
         refreshData() {
             ipcRenderer.send('data-request')
         },
+        openSettings() {
+            console.log('settings')
+        },
         changeStateSelected() {
             window.localStorage.setItem('selected-state', this.activeState)
         },
@@ -137,13 +141,24 @@ export default {
         color: #fff;
     }
 
+    .settingsIcon {
+        position: absolute;
+        top: 35px;
+        left: 15px;
+        width: 36px;
+        height: 36px;
+        background-image: url('../../public/img/settings.svg');
+        background-size: 36px 36px;
+        cursor: pointer;
+    }
+
     .refreshIcon {
         position: absolute;
-        top: 15px;
+        top: 35px;
         right: 15px;
         width: 36px;
         height: 36px;
-        background-image: url('../../public/img/baseline_refresh_black_18dp.png');
+        background-image: url('../../public/img/refresh-cw.svg');
         cursor: pointer;
     }
 }

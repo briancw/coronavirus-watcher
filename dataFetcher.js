@@ -3,7 +3,7 @@ const csvParse = require('csv-parse/lib/sync')
 const fs = require('fs')
 const path = require('path')
 
-const dataCachePath = path.resolve('./public/data/covid-19-cache.txt')
+const dataCachePath = path.resolve(__dirname, 'public', 'data', 'covid-19-cache.txt')
 
 class DataFetcher {
     async init() {

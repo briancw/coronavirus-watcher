@@ -1,5 +1,6 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const DataFetcher = require('./dataFetcher')
+const path = require('path')
 
 DataFetcher.init()
 
@@ -12,24 +13,21 @@ function createWindow() {
     const win = new BrowserWindow({
         width: 400,
         height: 800,
-        // frame: false,
         titleBarStyle: 'hidden',
         webPreferences: {
             nodeIntegration: true,
         },
     })
 
-    let url
-    if (process.env.NODE_ENV === 'DEV') {
-        url = 'http://localhost:8080/'
-    }
-    else {
-        url = `file://${process.cwd()}/public/index.html`
-    }
-
-    // and load the index.html of the app.
-    win.loadURL(url)
+    win.loadFile(path.join(__dirname, 'public', 'index.html'))
     // win.webContents.openDevTools()
+
+    // if (process.env.NODE_ENV === 'DEV') {
+    //     url = 'http://localhost:8080/'
+    // }
+    // else {
+    //     url = `file://${process.cwd()}/public/index.html`
+    // }
 }
 
 app.whenReady().then(createWindow)

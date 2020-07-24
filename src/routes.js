@@ -5,10 +5,12 @@ Vue.use(Router)
 import defaultLayout from './layouts/default.vue'
 
 const home = loadPage('home')
+const settings = loadPage('settings')
 
 const routes = [
     {path: '/', component: defaultLayout, children: [
         {path: '/', component: home, name: 'home'},
+        {path: '/settings', component: settings, name: 'settings'},
     ]},
 ]
 

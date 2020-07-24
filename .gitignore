@@ -3,3 +3,4 @@ npm-debug.log
 public/dist/*
 public/data/*.txt
 public/stats.html
+out/

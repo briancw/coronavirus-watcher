@@ -14,7 +14,7 @@ let config = {
     target: 'electron-renderer',
     mode: isProduction ? 'production' : 'development',
     entry: {
-        app: './client/entry.js',
+        app: './src/entry.js',
     },
     output: {
         path: path.resolve(__dirname, '../', 'public', 'dist'),
