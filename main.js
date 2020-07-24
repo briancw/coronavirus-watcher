@@ -46,5 +46,6 @@ app.on('activate', () => {
 
 ipcMain.on('data-request', (event, arg) => {
     let data = DataFetcher.returnCovidData()
+    console.log('new data request')
     event.reply('data-response', data)
 })

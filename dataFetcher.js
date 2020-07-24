@@ -43,8 +43,7 @@ class DataFetcher {
     }
 
     returnCovidData() {
-        let {covidData} = JSON.parse(fs.readFileSync(dataCachePath, 'utf-8'))
-        return covidData
+        return JSON.parse(fs.readFileSync(dataCachePath, 'utf-8'))
     }
 }
 

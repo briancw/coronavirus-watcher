@@ -1,23 +1,20 @@
 <template>
-    <div id="settings">
+    <div id="watch">
         <div class="topContainer">
             <router-link to="/" class="homeIcon"></router-link>
-            <div class="pageName">Settings</div>
+            <div class="pageName">Watched</div>
         </div>
 
-        Polling Interval
-        <input type="text" v-model="pollingIntervalMinutes" />
+        <input type="text" v-model="countySearchString" />
     </div>
 </template>
 
 <script>
-// import {ipcRenderer} from 'electron'
-
 export default {
     name: 'settings',
     data() {
         return {
-            pollingIntervalMinutes: 30,
+            countySearchString: '',
         }
     },
     methods: {

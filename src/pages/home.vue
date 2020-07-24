@@ -8,12 +8,15 @@
                 </select>
             </div>
 
-            <router-link class="settingsIcon" to="/settings"></router-link>
+            <router-link class="watchIcon" to="/watch"></router-link>
+            <!-- <router-link class="settingsIcon" to="/settings"></router-link> -->
             <div class="refreshIcon" v-on:click="refreshData"></div>
 
             <div class="stateTotal">
                 State Total: {{stateTotal}}
             </div>
+
+            <div class="updateTime">Updated: {{covidDataUpdateTime}}</div>
         </div>
 
         <div class="tableContainer">
@@ -34,7 +37,7 @@
 <script>
 import 'vue-good-table/dist/vue-good-table.css'
 
-import {ipcRenderer} from 'electron'
+import {mapState} from 'vuex'
 import {VueGoodTable} from 'vue-good-table'
 
 export default {
@@ -44,8 +47,6 @@ export default {
     },
     data() {
         return {
-            statesList: [],
-            statesData: {},
             activeState: window.localStorage.getItem('selected-state'),
             tableColumns: [
                 {label: 'County', field: 'county'},
@@ -69,40 +70,25 @@ export default {
                 this.statesData[this.activeState].forEach((county) => {
                     stateTotal += Number(county.cases)
                 })
-                return stateTotal
+                return (stateTotal).toLocaleString('en')
             }
             return 0
         },
+        statesList() {
+            return Object.keys(this.statesData)
+        },
+        ...mapState({
+            covidDataUpdateTime: (state) => state.covidDataUpdateTime,
+            statesData: (state) => state.covidData,
+        }),
     },
     methods: {
         refreshData() {
-            ipcRenderer.send('data-request')
-        },
-        openSettings() {
-            console.log('settings')
+            this.$store.dispatch('getCovidData')
         },
         changeStateSelected() {
             window.localStorage.setItem('selected-state', this.activeState)
         },
-    },
-    mounted() {
-        ipcRenderer.send('data-request')
-
-        ipcRenderer.on('data-response', (event, covidData) => {
-            // Build states list
-            this.statesData = {}
-            covidData.forEach((line) => {
-                let {state} = line
-
-                if (!this.statesData[state]) {
-                    this.statesData[state] = [line]
-                }
-                else {
-                    this.statesData[state].push(line)
-                }
-            })
-            this.statesList = Object.keys(this.statesData)
-        })
     },
 }
 </script>
@@ -112,7 +98,7 @@ export default {
 
 .topContainer {
     width: 100%;
-    height: 100px;
+    height: 130px;
     background-color: #212121;
     text-align: center;
     -webkit-app-region: drag;
@@ -120,7 +106,7 @@ export default {
 
     .selectContainer {
         display: inline-block;
-        margin-top: 15px;
+        margin-top: 40px;
 
         .stateSelect {
             display: block;
@@ -141,6 +127,14 @@ export default {
         color: #fff;
     }
 
+    .updateTime {
+        color: #777;
+        font-size: 18px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
     .settingsIcon {
         position: absolute;
         top: 35px;
@@ -148,6 +142,17 @@ export default {
         width: 36px;
         height: 36px;
         background-image: url('../../public/img/settings.svg');
+        background-size: 36px 36px;
+        cursor: pointer;
+    }
+
+    .watchIcon {
+        position: absolute;
+        top: 40px;
+        left: 20px;
+        width: 36px;
+        height: 36px;
+        background-image: url('../../public/img/eye.svg');
         background-size: 36px 36px;
         cursor: pointer;
     }
