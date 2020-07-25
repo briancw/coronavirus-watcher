@@ -1,6 +1,6 @@
 <template>
     <div id="home">
-        <div class="topContainer">
+        <div class="selectBar">
             <div class="selectContainer">
                 <select v-model="activeState" @change="changeStateSelected" class="stateSelect">
                     <option value="">---</option>
@@ -8,15 +8,9 @@
                 </select>
             </div>
 
-            <router-link class="watchIcon" to="/watch"></router-link>
-            <!-- <router-link class="settingsIcon" to="/settings"></router-link> -->
-            <div class="refreshIcon" v-on:click="refreshData"></div>
-
             <div class="stateTotal">
-                State Total: {{stateTotal}}
+                Total: {{stateTotal}}
             </div>
-
-            <div class="updateTime">Updated: {{covidDataUpdateTime}}</div>
         </div>
 
         <div class="tableContainer">
@@ -64,6 +58,23 @@ export default {
         }
     },
     computed: {
+        // Sort out data into sub objects by state
+        statesData() {
+            let statesData = {}
+            if (this.covidData.forEach) {
+                this.covidData.forEach((line) => {
+                    let {state} = line
+
+                    if (!statesData[state]) {
+                        statesData[state] = [line]
+                    }
+                    else {
+                        statesData[state].push(line)
+                    }
+                })
+            }
+            return statesData
+        },
         stateTotal() {
             if (this.activeState !== '' && this.statesData[this.activeState]) {
                 let stateTotal = 0
@@ -79,13 +90,10 @@ export default {
         },
         ...mapState({
             covidDataUpdateTime: (state) => state.covidDataUpdateTime,
-            statesData: (state) => state.covidData,
+            covidData: (state) => state.covidData,
         }),
     },
     methods: {
-        refreshData() {
-            this.$store.dispatch('getCovidData')
-        },
         changeStateSelected() {
             window.localStorage.setItem('selected-state', this.activeState)
         },
@@ -96,17 +104,16 @@ export default {
 <style lang="less">
 @import '../styles/mixins.less';
 
-.topContainer {
+.selectBar {
     width: 100%;
-    height: 130px;
-    background-color: #212121;
-    text-align: center;
-    -webkit-app-region: drag;
-    cursor: pointer;
+    background-color: #324057;
+    padding-left: 15px;
 
     .selectContainer {
         display: inline-block;
-        margin-top: 40px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: center;
 
         .stateSelect {
             display: block;
@@ -122,51 +129,12 @@ export default {
     }
 
     .stateTotal {
-        font-size: 20px;
+        font-size: 18px;
         margin-top: 10px;
         color: #fff;
-    }
-
-    .updateTime {
-        color: #777;
-        font-size: 18px;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
-
-    .settingsIcon {
-        position: absolute;
-        top: 35px;
-        left: 15px;
-        width: 36px;
-        height: 36px;
-        background-image: url('../../public/img/settings.svg');
-        background-size: 36px 36px;
-        cursor: pointer;
-    }
-
-    .watchIcon {
-        position: absolute;
-        top: 40px;
-        left: 20px;
-        width: 36px;
-        height: 36px;
-        background-image: url('../../public/img/eye.svg');
-        background-size: 36px 36px;
-        cursor: pointer;
-    }
-
-    .refreshIcon {
-        position: absolute;
-        top: 35px;
-        right: 15px;
-        width: 36px;
-        height: 36px;
-        background-image: url('../../public/img/refresh-cw.svg');
-        cursor: pointer;
+        display: inline-block;
+        margin-left: 15px;
     }
 }
-.tableContainer {
-}
+
 </style>

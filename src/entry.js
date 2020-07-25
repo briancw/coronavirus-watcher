@@ -10,19 +10,7 @@ if (window.__INITIAL_STATE__) {
 ipcRenderer.on('data-response', (event, {lastUpdateTime, covidData}) => {
     let formattedTime = new Date(lastUpdateTime).toLocaleString('en-us', {month: 'short', day: 'numeric', minute: 'numeric', hour: 'numeric', hour12: true})
     store.commit('updateDataTime', formattedTime)
-
-    let statesData = {}
-    covidData.forEach((line) => {
-        let {state} = line
-
-        if (!statesData[state]) {
-            statesData[state] = [line]
-        }
-        else {
-            statesData[state].push(line)
-        }
-    })
-    store.commit('updateCovidData', statesData)
+    store.commit('updateCovidData', covidData)
 })
 
 router.onReady(() => {

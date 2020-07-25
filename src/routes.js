@@ -7,12 +7,14 @@ import defaultLayout from './layouts/default.vue'
 const home = loadPage('home')
 const settings = loadPage('settings')
 const watch = loadPage('watch')
+const death = loadPage('death')
 
 const routes = [
     {path: '/', component: defaultLayout, children: [
         {path: '/', component: home, name: 'home'},
         {path: '/settings', component: settings, name: 'settings'},
         {path: '/watch', component: watch, name: 'watch'},
+        {path: '/death', component: death, name: 'death'},
     ]},
 ]
 

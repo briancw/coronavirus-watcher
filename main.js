@@ -11,7 +11,7 @@ DataFetcher.init()
 function createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
-        width: 400,
+        width: 500,
         height: 800,
         titleBarStyle: 'hidden',
         webPreferences: {
@@ -21,13 +21,6 @@ function createWindow() {
 
     win.loadFile(path.join(__dirname, 'public', 'index.html'))
     // win.webContents.openDevTools()
-
-    // if (process.env.NODE_ENV === 'DEV') {
-    //     url = 'http://localhost:8080/'
-    // }
-    // else {
-    //     url = `file://${process.cwd()}/public/index.html`
-    // }
 }
 
 app.whenReady().then(createWindow)

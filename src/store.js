@@ -8,6 +8,7 @@ import {ipcRenderer} from 'electron'
 const state = {
     covidDataUpdateTime: '',
     covidData: {},
+    watchedCountiesIds: localStorage.getItem('watched-counties') !== null ? JSON.parse(localStorage.getItem('watched-counties')) : [],
 }
 
 const mutations = {
